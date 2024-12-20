@@ -11,6 +11,10 @@ main
 *.dSYM
 *.stackdump
 
+# Environment files
+trade_env/
+.env
+
 # Visual debugger configurations
 .vscode/
 .vs/

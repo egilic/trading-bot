@@ -1,6 +1,28 @@
 import time
 import logging
 from typing import Tuple
+import os
+from dotenv import load_dotenv
+
+from alpaca.trading.client import TradingClient
+from alpaca.trading.stream import TradingStream
+from alpaca.trading.requests import MarketOrderRequest
+from alpaca.trading.enums import OrderSide, TimeInForce
+
+# Load environment variables from .env 
+load_dotenv()
+
+api_key = os.getenv('ALPACA_API_KEY')
+secret_key = os.getenv('ALPACA_SECRET_KEY')
+paper = True
+
+trading_stream_client = TradingStream(api_key=api_key, secret_key=secret_key, paper=paper)
+
+async def trade_updates_handler(data):
+    print(data)
+
+trading_stream_client.subscribe_trade_updates(trade_updates_handler)
+trading_stream_client.run()
 
 # Set up logging
 logging.basicConfig(filename='trading_bot.log', level=logging.INFO,
